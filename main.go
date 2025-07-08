@@ -242,7 +242,8 @@ func (a *app) handleLogin(w http.ResponseWriter, r *http.Request) {
 	}
 
 	authCodeURL := ""
-	scopes = append(scopes, "openid", "profile", "email")
+	additionalScope := "groups" // bw: added for vault integration
+	scopes = append(scopes, "openid", "profile", "email", additionalScope)
 	if r.FormValue("offline_access") != "yes" {
 		authCodeURL = a.oauth2Config(scopes).AuthCodeURL(exampleAppState)
 	} else if a.offlineAsScope {
@@ -254,6 +255,7 @@ func (a *app) handleLogin(w http.ResponseWriter, r *http.Request) {
 	if connectorID != "" {
 		authCodeURL = authCodeURL + "&connector_id=" + connectorID
 	}
+	authCodeURL += "&with=oidc" // bw: added for vault integration
 
 	http.Redirect(w, r, authCodeURL, http.StatusSeeOther)
 }

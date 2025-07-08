@@ -3,6 +3,11 @@
 version: '3'
 
 tasks:
+  build:
+    desc: Build the project
+    cmds:
+      - go build -o idp_client .
+      - mv idp_client ~/bin
   default:
     cmds:
       - clear
