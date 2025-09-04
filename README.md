@@ -16,7 +16,7 @@ echo ${res} | jq
 
 # this is the build of https://github.com/dexidp/dex/tree/master/examples/example-app
 issuer=${VAULT_ADDR}/v1/identity/oidc/provider/${idp_provider}
-~/bin/oidc-client \
+~/bin/idp_client \
   --issuer=${issuer} \
   --client-id=${client_id} \
   --client-secret=${client_secret}
